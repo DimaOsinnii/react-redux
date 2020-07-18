@@ -1,5 +1,5 @@
 import {createStore} from "redux";
-import {rootReducer} from "../reducers";
+import todos from "../reducers";
 // import {loadState, saveState} from '../utils/localStorage'
 // import throttle from 'loadsh/throttle'
 
@@ -37,7 +37,7 @@ const configureStore = () => {
     // const preloadedState = loadState();
     // const store = createStore(rootReducer, preloadedState);
 
-    const store = createStore(rootReducer);
+    const store = createStore(todos);
     const middlewares = [promise];
     if (process.env.NODE_ENV !== 'production') {
         middlewares.push(logger);

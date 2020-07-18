@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import configureStore from "./store/configureStore";
 import Root from "./components/Root";
 import {fetchTodos} from "./utils/api";
-import todos from "./reducers/todos";
+import todos from "./reducers";
 
 fetchTodos('all').then(todos =>
     console.log(todos)
