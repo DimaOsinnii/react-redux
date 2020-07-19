@@ -1,9 +1,16 @@
 import {createStore} from "redux";
 import todos from "../reducers";
+import {createLogger} from 'redux-logger';
 // import {loadState, saveState} from '../utils/localStorage'
 // import throttle from 'loadsh/throttle'
 
-const logger = (store) => (next) => {
+
+const  thunk = (store) => (next) => (action) =>
+    typeof action === 'function' ?
+        action(store.dispatch):
+        next(action);
+
+/*const logger = (store) => (next) => {
     if (!console.group) {
         return next;
     }
@@ -16,14 +23,7 @@ const logger = (store) => (next) => {
         console.groupEnd(action.type);
         return returnValue
     }
-};
-
-const promise = (store) => (next) => (action) => {
-    if (typeof action.then === 'function') {
-        return action.then(next);
-    }
-    next(action);
-};
+};*/
 
 const wrapDispatchWithMiddlewares = (store, middlewares) => {
     middlewares.slice().reverse().forEach(middleware =>
@@ -34,20 +34,20 @@ const wrapDispatchWithMiddlewares = (store, middlewares) => {
 
 const configureStore = () => {
 
-    // const preloadedState = loadState();
-    // const store = createStore(rootReducer, preloadedState);
+/*    const preloadedState = loadState();
+    const store = createStore(rootReducer, preloadedState);*/
 
     const store = createStore(todos);
-    const middlewares = [promise];
+    const middlewares = [thunk];
     if (process.env.NODE_ENV !== 'production') {
-        middlewares.push(logger);
+        middlewares.push(createLogger());
     }
 
-    // store.subscribe(throttle(() => {
-    //     saveState({
-    //         todos: store.getState().todos
-    //     });
-    // }, 1000));
+/*    store.subscribe(throttle(() => {
+        saveState({
+            todos: store.getState().todos
+        });
+    }, 1000));*/
 
     wrapDispatchWithMiddlewares(store, middlewares);
 
