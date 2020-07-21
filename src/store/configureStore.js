@@ -1,14 +1,19 @@
 import {createStore} from "redux";
 import todos from "../reducers";
 import {createLogger} from 'redux-logger';
+import thunk from "redux-thunk";
 // import {loadState, saveState} from '../utils/localStorage'
 // import throttle from 'loadsh/throttle'
 
 
-const  thunk = (store) => (next) => (action) =>
+
+
+
+
+/*const  thunk = (store) => (next) => (action) =>
     typeof action === 'function' ?
-        action(store.dispatch):
-        next(action);
+        action(store.dispatch, store.getState):
+        next(action);*/
 
 /*const logger = (store) => (next) => {
     if (!console.group) {

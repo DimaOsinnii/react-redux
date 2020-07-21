@@ -10,5 +10,6 @@ export const Todo = ({onClick, completed, text}) => (
         }}
     >
         {text}
+        {console.log(completed)}
     </li>
 );
